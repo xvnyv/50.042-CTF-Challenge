@@ -1,0 +1,29 @@
+The following base64-encoded ciphertext and MAC encrypted with AES-CBC and AES-CBC-MAC were intercepted:
+
+Ciphertext:
+dCIKPyYB2uxmPCDIMyayylLl3sjkDiBpK+bWpZONsnnHQgszM/ztD2syZU4/rPVIsS/VxqhxxmvOpinKP+j+kXKAKYUA9Jx08XH0JUYi4n0tkQJtPi/LooKvpsmTKbc+ibVCVz31xnxoFtOvtu0nNmJRUMvTjabXoNrter708AL4RSURq1VBTylMXWqzboyar/8LUOF+w+Ni+EKq07jJ9zsAgHoyulc7Vbe11o80IlKxokeJj6sCtvwXqoBwXiR4nlp+d4P56p7bwkOczMa4WTI0bFCpNw2eSqvO6hymAuPeZXpVHvL/w2buLkdHLWmYMP7CjHLxm72PWu3zqG02+sV04/nZQfYY0r3K2SfvVdil5+a/F+sGMPzs1uT4CHmf
+
+MAC:
+pefmvxfrBjD87Nbk+Ah5nw==
+
+The intercepted ciphertext translates to the following plaintext:
+
+Plaintext: 
+{
+    "amount": "100.00",
+    "receiver_account_id": "CBA54321XZ",
+    "receiver_account_name": "Eve's Extra Income",
+    "sender_account_id": "ABC12345ZQ",
+    "sender_account_name": "Alice's Savings",
+    "timestamp": "2022-01-01 00:00:00",
+    "transaction_status": "pending",
+    "transaction_type": "transfer"
+}
+
+A list of 20 ciphertexts and MACs representing transfers from Alice to a few accounts (including Eve's) were previously acquired and are stored in encrypted_transactions.txt. Each line in the file contains information for one transfer in the format of <ciphertext>,<MAC>. The plaintexts of those transfers share the same format as this intercepted message.
+
+To get the flag, modify this intercepted message to send Eve more than $100 with the timestamp 2022-01-01 00:00:00. Send your encrypted message and the original MAC to <insert-api-url>. You can use the following command:
+
+curl -X POST -H 'Content-Type: application/json' -d '{"ciphertext": <your-modified-message-in-base64>, "mac": "pefmvxfrBjD87Nbk+Ah5nw=="}' <insert-api-url>
+
+P.S. the server is very poorly implemented and only verifies 4 relevant fields ;)
