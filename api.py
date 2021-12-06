@@ -85,13 +85,13 @@ def submit():
         authentic = verify(plaintext, ciphertext_in_bytes[-BLOCK_SIZE:])
         if not authentic:
             return {
-                "plaintext": plaintext.decode(),
+                "plaintext": plaintext.decode("unicode-escape"),
                 "flag": None,
                 "message": "Nice try, that message was not authentic",
             }
     except:
         return {
-            "plaintext": plaintext,
+            "plaintext": plaintext.decode("unicode-escape"),
             "flag": None,
             "message": "Oops, we encountered an exception while verifying your MAC. Guess your message was not authentic...",
         }
@@ -119,7 +119,7 @@ def submit():
         return {
             "plaintext": plaintext.decode("unicode-escape"),
             "flag": None,
-            "message": "Incorrect message format. Check your keys!",
+            "message": "Oops, your message modifications did not meet Eve's requirements",
         }
     return {
         "plaintext": plaintext.decode("unicode-escape"),
